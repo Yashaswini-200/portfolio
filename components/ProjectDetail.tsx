@@ -19,29 +19,30 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         <p className="text-base leading-relaxed text-text-secondary">{project.summary}</p>
       </header>
 
-      <section className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
+      <section aria-labelledby="problem-heading" className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
         <div className="space-y-6">
-          <div>
-            <h2 className="font-mono text-xl font-semibold text-text-primary">Problem</h2>
+          <article>
+            <h2 id="problem-heading" className="font-mono text-xl font-semibold text-text-primary">Problem</h2>
             <p className="mt-3 text-text-secondary">{project.problem}</p>
-          </div>
-          <div>
-            <h2 className="font-mono text-xl font-semibold text-text-primary">Solution</h2>
+          </article>
+          <article>
+            <h2 id="solution-heading" className="font-mono text-xl font-semibold text-text-primary">Solution</h2>
             <p className="mt-3 text-text-secondary">{project.solution}</p>
-          </div>
-          <div>
-            <h2 className="font-mono text-xl font-semibold text-text-primary">Key learnings</h2>
-            <ul className="mt-4 space-y-3 text-text-secondary">
-              {project.keyLearnings.map(learning => (
-                <li key={learning} className="font-sans text-sm leading-6">
-                  • {learning}
+          </article>
+          <section aria-labelledby="learnings-heading">
+            <h2 id="learnings-heading" className="font-mono text-xl font-semibold text-text-primary">Key learnings</h2>
+            <ol className="mt-4 space-y-3">
+              {project.keyLearnings.map((learning, idx) => (
+                <li key={learning} className="rounded border border-border bg-background p-4">
+                  <div className="font-mono text-sm text-text-muted">{idx + 1}.</div>
+                  <p className="mt-2 text-text-secondary">{learning}</p>
                 </li>
               ))}
-            </ul>
-          </div>
+            </ol>
+          </section>
         </div>
 
-        <div className="space-y-6">
+        <aside className="space-y-6">
           <div className="rounded border border-border bg-background p-5">
             <h3 className="font-mono text-sm uppercase tracking-widest text-text-muted">Technologies</h3>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -58,12 +59,13 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-block font-mono text-sm text-accent transition-colors duration-150 hover:text-accentDim focus:outline-2 focus:outline-accent focus:outline-offset-2"
+              aria-label={`${project.title} GitHub repository (opens in new tab)`}
+              className="mt-3 inline-block font-mono text-sm text-accent transition-colors duration-150 hover:text-accentDim focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
             >
               {project.githubUrl}
             </a>
           </div>
-        </div>
+        </aside>
       </section>
 
       <ArchitectureDiagram architecture={project.architecture} />
