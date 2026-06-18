@@ -6,11 +6,13 @@ const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
   { href: '#skills', label: 'Skills' },
+  { href: '#journey', label: 'Journey' },
   { href: '#contact', label: 'Contact' }
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -50,8 +52,29 @@ export default function Nav() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [open]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navLinks.map(link => link.href.substring(1));
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav aria-label="Main navigation" className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
+    <nav aria-label="Main navigation" className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md transition-all duration-300">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
         <div className="font-mono text-sm font-bold uppercase tracking-[0.25em] text-accent">Yashaswini</div>
 
@@ -60,7 +83,11 @@ export default function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="font-mono text-sm text-text-secondary transition-colors duration-150 hover:text-accent focus:outline-2 focus:outline-accent focus:outline-offset-2"
+              className={`font-mono text-sm transition-colors duration-150 ${
+                activeSection === link.href.substring(1)
+                  ? 'text-accent font-semibold'
+                  : 'text-text-secondary hover:text-accent'
+              } focus:outline-2 focus:outline-accent focus:outline-offset-2`}
             >
               {link.label}
             </a>
@@ -90,7 +117,11 @@ export default function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block font-mono text-sm text-text-secondary transition-colors duration-150 hover:text-accent focus:outline-2 focus:outline-accent focus:outline-offset-2"
+                className={`block font-mono text-sm transition-colors duration-150 ${
+                  activeSection === link.href.substring(1)
+                    ? 'text-accent font-semibold'
+                    : 'text-text-secondary hover:text-accent'
+                } focus:outline-2 focus:outline-accent focus:outline-offset-2`}
               >
                 {link.label}
               </a>

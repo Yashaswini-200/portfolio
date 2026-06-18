@@ -1,5 +1,6 @@
 import About from '@/components/About';
 import Contact from '@/components/Contact';
+import EngineeringJourney from '@/components/EngineeringJourney';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import Nav from '@/components/Nav';
@@ -9,7 +10,7 @@ import { projects } from '@/data/projects';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-text-secondary">
+    <div className="min-h-screen bg-background text-text-secondary animate-fade-in">
       <Nav />
 
       <main className="mx-auto max-w-6xl px-6 pb-20 pt-28 lg:px-8">
@@ -17,6 +18,7 @@ export default function Home() {
         <About />
         <Skills />
         <Projects projects={projects} />
+        <EngineeringJourney />
         <Contact />
         <Footer />
       </main>

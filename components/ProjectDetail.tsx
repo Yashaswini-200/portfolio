@@ -58,7 +58,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
             <a
               href={project.githubUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label={`${project.title} GitHub repository (opens in new tab)`}
               className="mt-3 inline-block font-mono text-sm text-accent transition-colors duration-150 hover:text-accentDim focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
             >

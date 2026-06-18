@@ -39,18 +39,20 @@ const jsonLd = {
   name: 'Yashaswini',
   jobTitle: 'Embedded Systems Engineering Student',
   description: 'Integrated B.Tech + M.Tech student in ECE focused on firmware and embedded systems.',
-  url: 'https://yashaswini.vercel.app',
+  url: 'TODO: Replace with deployed portfolio URL',
   sameAs: [
-    'https://github.com/yashaswini',
-    'https://linkedin.com/in/yashaswini'
+    'https://github.com/Yashaswini-200',
+    'https://www.linkedin.com/in/yashaswini-v-a21a3032a/'
   ]
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark" />
       </head>
       <body>{children}</body>
     </html>

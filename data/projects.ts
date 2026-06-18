@@ -23,7 +23,7 @@ export const projects: Project[] = [
     },
     keyLearnings: ['Designing modular firmware', 'Asynchronous communication workflows'],
     technologies: ['Embedded C', 'UART', 'Interrupts'],
-    githubUrl: 'https://github.com/yashaswini/uart-command-shell',
+    githubUrl: 'https://github.com/Yashaswini-200/uart-command-shell',
     featured: true
   },
   {
@@ -46,9 +46,9 @@ export const projects: Project[] = [
       dataFlow:
         'Interrupt fires → ISR enqueues byte → Main loop dequeues → Event handler processes → Response sent'
     },
-    keyLearnings: ['Designing ISR-safe communication mechanisms', 'Producer-consumer patterns in embedded C'],
+    keyLearnings: ['Designing ISR-safe communication mechanisms', 'Producer-consumer patterns in Embedded C'],
     technologies: ['Embedded C', 'UART', 'Interrupts', 'Ring Buffers'],
-    githubUrl: 'https://github.com/yashaswini/event-driven-uart',
+    githubUrl: 'https://github.com/Yashaswini-200/Event-driven-UART-command-system',
     featured: true
   },
   {
@@ -64,16 +64,16 @@ export const projects: Project[] = [
       nodes: [
         { id: 'hardware-timer', label: 'Hardware Timer' },
         { id: 'tick-counter', label: 'Tick Counter' },
-        { id: 'task-table', label: 'Task Table (TCB Array)' },
+        { id: 'task-table', label: 'Task Table' },
         { id: 'scheduler-loop', label: 'Scheduler Loop' },
         { id: 'task-functions', label: 'Task Functions' }
       ],
       dataFlow:
         'Timer interrupt → increments tick → Scheduler checks elapsed per task → Executes due tasks → Returns'
     },
-    keyLearnings: ['Building non-blocking systems', 'Deterministic execution flow without RTOS overhead'],
+    keyLearnings: ['Building non-blocking systems', 'Organizing periodic tasks without RTOS overhead'],
     technologies: ['Embedded C', 'Timers', 'Function Pointers', 'Cooperative Scheduling'],
-    githubUrl: 'https://github.com/yashaswini/cooperative-scheduler',
+    githubUrl: 'https://github.com/Yashaswini-200/cooperative-schedular',
     featured: true
   },
   {
@@ -98,7 +98,31 @@ export const projects: Project[] = [
     },
     keyLearnings: ['Combining sensor data with state machine fault classification', 'Prototyping on NodeMCU with Wokwi simulation'],
     technologies: ['Embedded C', 'NodeMCU', 'PlatformIO', 'Wokwi', 'State Machines'],
-    githubUrl: 'https://github.com/yashaswini/predictive-maintenance',
+    githubUrl: 'https://github.com/Yashaswini-200/Predictive-Maintenance-System',
+    featured: true
+  },
+  {
+    id: 5,
+    slug: 'fir-filter-architecture-comparison',
+    title: 'FIR Filter Architecture Comparison',
+    status: 'Complete',
+    summary: 'Comparative analysis of FIR filter architectures to evaluate implementation trade-offs.',
+    problem: 'Different FIR filter architectures offer varying trade-offs in hardware utilization, throughput, and implementation complexity.',
+    solution: 'Analyzed and compared basic, symmetric, pipelined, and pipelined symmetric FIR filter architectures.',
+    architecture: {
+      summary: 'A comparison of FIR architectures from sample input through output generation.',
+      nodes: [
+        { id: 'input-samples', label: 'Input Samples' },
+        { id: 'fir-architecture', label: 'FIR Architecture' },
+        { id: 'processing-stage', label: 'Processing Stage' },
+        { id: 'output-samples', label: 'Output Samples' }
+      ],
+      dataFlow:
+        'Input samples → Selected FIR architecture → Signal processing → Output generation'
+    },
+    keyLearnings: ['Understanding FIR architecture trade-offs', 'Comparing resource usage and throughput optimization techniques'],
+    technologies: ['Verilog', 'Digital Signal Processing', 'FIR Filters'],
+    githubUrl: 'https://github.com/Yashaswini-200/fir-filter-architecture-comparison',
     featured: true
   }
 ];
