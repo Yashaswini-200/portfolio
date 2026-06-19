@@ -38,7 +38,7 @@ export default function ProjectPage({ params }: Params) {
 
   return (
     <main className="min-h-screen bg-background px-6 py-28 text-text-secondary lg:px-8">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-[860px]">
         <Link
           href="/#projects"
           className="font-mono text-sm text-text-secondary transition-colors duration-150 hover:text-accent focus:outline-2 focus:outline-accent focus:outline-offset-2"

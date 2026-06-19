@@ -10,10 +10,10 @@ import { projects } from '@/data/projects';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-text-secondary animate-fade-in">
+    <div className="min-h-screen bg-background text-text-primary">
       <Nav />
 
-      <main className="mx-auto max-w-6xl px-6 pb-20 pt-28 lg:px-8">
+      <main className="mx-auto max-w-[860px] px-6 pb-20 pt-[72px] lg:px-8">
         <Hero />
         <About />
         <Skills />

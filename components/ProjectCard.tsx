@@ -7,10 +7,10 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="group rounded border border-border bg-surface p-6 transition-all duration-300 hover:border-accent hover:shadow-lg hover:shadow-accent/10 hover:-translate-y-1">
+    <article className="group border border-border bg-surface p-6 transition-all duration-300 hover:border-accent">
       <div className="flex items-center justify-between text-sm text-text-muted">
         <span className="font-mono">[{String(project.id).padStart(2, '0')}]</span>
-        <span className="rounded-full border border-border px-2 py-1 text-xs uppercase tracking-widest text-text-secondary">
+        <span className="border border-border px-2 py-1 text-xs uppercase tracking-widest text-text-secondary">
           {project.status}
         </span>
       </div>
@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.technologies.map(tech => (
             <code
               key={tech}
-              className="rounded border border-border bg-background px-1.5 py-0.5 font-mono text-sm text-accent transition-colors duration-200 group-hover:border-accent/50"
+              className="border border-border bg-background px-1.5 py-0.5 font-mono text-sm text-accent transition-colors duration-200 group-hover:border-accent/50"
             >
               {tech.toLowerCase()}
             </code>
@@ -35,7 +35,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <div className="mt-6 border-t border-border pt-4 flex flex-wrap items-center gap-3 text-sm">
         <Link
           href={`/projects/${project.slug}`}
-          className="font-mono text-accent transition-colors duration-150 hover:text-accentDim focus:outline-2 focus:outline-accent focus:outline-offset-2"
+          className="font-mono text-accent transition-colors duration-150 hover:text-accent focus:outline-2 focus:outline-accent focus:outline-offset-2"
         >
           View Details →
         </Link>

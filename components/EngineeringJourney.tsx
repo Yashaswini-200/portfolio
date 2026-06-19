@@ -1,129 +1,61 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { shouldReduceMotion } from '@/lib/animations';
-
 const milestones = [
   {
     title: 'ECE Foundation',
-    description: 'Understanding digital logic, circuit design, and signal fundamentals.',
-    icon: '⚡'
+    description: 'Digital logic, circuit design, signal fundamentals.'
   },
   {
     title: 'Embedded C Fundamentals',
-    description: 'Mastered C programming for microcontrollers and resource-constrained systems.',
-    icon: '💾'
+    description: 'C for microcontrollers and resource-constrained systems.'
   },
   {
     title: 'Interrupt-Driven Systems',
-    description: 'Built event-driven architectures using interrupts and timer modules.',
-    icon: '🔔'
+    description: 'Event-driven architectures using interrupts and timers.'
   },
   {
     title: 'Real-Time Design',
-    description: 'Implemented cooperative task scheduling and state machines.',
-    icon: '⏱️'
+    description: 'Cooperative scheduling and state machines.'
   },
   {
     title: 'Communication Systems',
-    description: 'Designed UART shells and protocol-level communication systems.',
-    icon: '📡'
+    description: 'UART shells and protocol-level communication.'
   },
   {
     title: 'Production Firmware',
-    description: 'Built machine health monitoring and predictive maintenance systems.',
-    icon: '🏭'
+    description: 'Machine health monitoring and predictive maintenance systems.'
   }
 ];
 
 export default function EngineeringJourney() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const reduceMotion = shouldReduceMotion();
-
-  const containerVariants = reduceMotion
-    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-    : {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2,
-          },
-        },
-      };
-
-  const itemVariants = reduceMotion
-    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-    : {
-        hidden: { opacity: 0, y: 20, x: -10 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          x: 0,
-          transition: {
-            duration: 0.4,
-          },
-        },
-      };
-
   return (
     <section id="journey" className="mt-16">
-      <div className="mb-8">
-        <p className="font-mono text-xs uppercase tracking-widest text-text-muted">Career Path</p>
-        <h2 className="mt-3 font-mono text-2xl font-semibold text-text-primary">Engineering Journey</h2>
+      <div className="mb-10 flex items-center gap-4">
+        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-accent">0x04 // journey</span>
+        <span className="h-px flex-1 bg-border max-w-[60px]" />
       </div>
 
-      <motion.div
-        ref={ref}
-        className="space-y-4"
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? 'visible' : 'hidden'}
-      >
-        {milestones.map((milestone, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            className="rounded border border-border bg-surface p-6 transition-all duration-300 hover:border-accent hover:bg-surface"
-          >
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded border border-accent bg-background text-lg">
-                {milestone.icon}
+      <div className="relative border-l border-border pl-8">
+        {milestones.map((milestone, index) => {
+          const isLast = index === milestones.length - 1;
+
+          return (
+            <div key={milestone.title} className="relative pb-10">
+              <span
+                className={`absolute left-[-10px] top-1 h-2 w-2 ${
+                  isLast ? 'border border-accent bg-transparent animate-pulse-dot' : 'bg-accent'
+                }`}
+              />
+              <div className="font-mono text-[15px] font-semibold text-text-primary">
+                {milestone.title}
               </div>
-              <div className="flex-1">
-                <h3 className="font-mono text-lg font-semibold text-text-primary">
-                  {milestone.title}
-                </h3>
-                <p className="mt-2 text-sm text-text-secondary">
-                  {milestone.description}
-                </p>
-              </div>
+              <p className="mt-2 text-[13px] leading-6 text-text-muted">
+                {milestone.description}
+              </p>
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 }

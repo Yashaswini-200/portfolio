@@ -3,23 +3,21 @@
 import { useEffect, useRef, useState } from 'react';
 
 const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#journey', label: 'Journey' },
-  { href: '#contact', label: 'Contact' }
+  { href: '#about', label: 'About', address: '0x01' },
+  { href: '#skills', label: 'Skills', address: '0x02' },
+  { href: '#projects', label: 'Projects', address: '0x03' },
+  { href: '#journey', label: 'Journey', address: '0x04' },
+  { href: '#contact', label: 'Contact', address: '0x05' }
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('about');
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!open) {
-      return;
-    }
+    if (!open) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -33,9 +31,7 @@ export default function Nav() {
   }, [open]);
 
   useEffect(() => {
-    if (!open) {
-      return;
-    }
+    if (!open) return;
 
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -55,7 +51,7 @@ export default function Nav() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navLinks.map(link => link.href.substring(1));
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 90;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -70,26 +66,29 @@ export default function Nav() {
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <nav aria-label="Main navigation" className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md transition-all duration-300">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
-        <div className="font-mono text-sm font-bold uppercase tracking-[0.25em] text-accent">Yashaswini</div>
+    <nav className="fixed inset-x-0 top-0 z-50 h-[52px] border-b border-border bg-[#0A0A0F]/92 backdrop-blur-sm">
+      <div className="mx-auto flex h-full max-w-[860px] items-center justify-between px-6">
+        <div className="font-mono text-[13px] font-semibold uppercase tracking-[0.05em] text-accent">
+          Y_V.fw
+        </div>
 
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map(link => (
             <a
               key={link.href}
               href={link.href}
-              className={`font-mono text-sm transition-colors duration-150 ${
+              className={`font-mono text-[12px] uppercase tracking-[0.15em] transition-colors duration-150 ${
                 activeSection === link.href.substring(1)
-                  ? 'text-accent font-semibold'
-                  : 'text-text-secondary hover:text-accent'
+                  ? 'text-accent'
+                  : 'text-text-muted hover:text-accent'
               } focus:outline-2 focus:outline-accent focus:outline-offset-2`}
             >
-              {link.label}
+              {link.address}
             </a>
           ))}
         </div>
@@ -99,7 +98,7 @@ export default function Nav() {
           type="button"
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="inline-flex h-10 w-10 items-center justify-center rounded border border-border text-text-secondary transition-colors duration-150 hover:border-accent hover:text-accent focus:outline-2 focus:outline-accent focus:outline-offset-2 md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center border border-border text-text-muted transition-colors duration-150 hover:border-accent hover:text-accent focus:outline-2 focus:outline-accent focus:outline-offset-2 md:hidden"
           onClick={() => setOpen(current => !current)}
         >
           <span className="sr-only">Toggle menu</span>
@@ -109,7 +108,7 @@ export default function Nav() {
         </button>
       </div>
 
-      {open ? (
+      {open && (
         <div id="mobile-menu" ref={menuRef} className="border-t border-border bg-background/95 px-6 pb-6 md:hidden">
           <div className="space-y-4 pt-4">
             {navLinks.map(link => (
@@ -117,18 +116,18 @@ export default function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`block font-mono text-sm transition-colors duration-150 ${
+                className={`block font-mono text-[12px] uppercase tracking-[0.15em] transition-colors duration-150 ${
                   activeSection === link.href.substring(1)
-                    ? 'text-accent font-semibold'
-                    : 'text-text-secondary hover:text-accent'
+                    ? 'text-accent'
+                    : 'text-text-muted hover:text-accent'
                 } focus:outline-2 focus:outline-accent focus:outline-offset-2`}
               >
-                {link.label}
+                {link.address} — {link.label}
               </a>
             ))}
           </div>
         </div>
-      ) : null}
+      )}
     </nav>
   );
 }

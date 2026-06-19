@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import './globals.css';
+import { JetBrains_Mono } from 'next/font/google';
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-mono'
+});
 
 export const metadata: Metadata = {
   title: 'Yashaswini — Embedded Systems Portfolio',
@@ -14,7 +22,6 @@ export const metadata: Metadata = {
     'interrupts',
     'platformio',
     'nodemcu',
-    'arduino',
     'cooperative scheduling',
     'firmware internship'
   ],
@@ -54,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="color-scheme" content="dark" />
       </head>
-      <body>{children}</body>
+      <body className={`${jetbrains.className} font-mono bg-bg text-text`}>{children}</body>
     </html>
   );
 }

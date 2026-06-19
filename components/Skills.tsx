@@ -1,34 +1,39 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import SkillChip from '@/components/SkillChip';
 import { shouldReduceMotion } from '@/lib/animations';
-import { useEffect, useRef, useState } from 'react';
 
 const categories = [
   {
     title: 'FIRMWARE & EMBEDDED',
+    variant: 'accent',
     tags: ['Embedded C', 'UART', 'Interrupts', 'Ring Buffers', 'State Machines', 'Cooperative Scheduling']
   },
   {
-    title: 'TOOLS',
+    title: 'HARDWARE',
+    variant: 'normal',
+    tags: ['NodeMCU', 'SPI', 'I2C', 'BLE', 'Sensors']
+  },
+  {
+    title: 'TOOLCHAIN',
+    variant: 'normal',
     tags: ['PlatformIO', 'Wokwi', 'Git', 'VS Code']
   },
   {
-    title: 'HARDWARE',
-    tags: ['NodeMCU']
+    title: 'LANGUAGES',
+    variant: 'normal',
+    tags: ['C', 'Python', 'Verilog', 'TypeScript']
   },
   {
     title: 'ACADEMIC',
+    variant: 'dashed',
     tags: ['Digital Signal Processing', 'Communication Systems', 'Digital Electronics']
-  },
-  {
-    title: 'LANGUAGES',
-    tags: ['C', 'Python', 'TypeScript']
   }
 ];
 
-const learningGoals = ['Memory-Mapped I/O', 'Register-Level Programming', 'SPI Communication', 'I2C Communication', 'RTOS Fundamentals'];
+const learningGoals = ['Memory-Mapped I/O', 'Register-Level Programming', 'SPI', 'I2C', 'RTOS Fundamentals'];
 
 export default function Skills() {
   const ref = useRef<HTMLDivElement>(null);
@@ -42,7 +47,7 @@ export default function Skills() {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     if (ref.current) {
@@ -54,72 +59,41 @@ export default function Skills() {
 
   const reduceMotion = shouldReduceMotion();
 
-  const containerVariants = reduceMotion
-    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-    : {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.05,
-            delayChildren: 0.1,
-          },
-        },
-      };
-
-  const itemVariants = reduceMotion
-    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-    : {
-        hidden: { opacity: 0, y: 10 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.3,
-          },
-        },
-      };
-
   return (
-    <section id="skills" className="mt-16 rounded border border-border bg-surface p-6 sm:p-8">
-      <div className="mb-8">
-        <h2 className="font-mono text-2xl font-semibold text-text-primary">Skills</h2>
+    <section id="skills" ref={ref} className="mt-16">
+      <div className="mb-10 flex items-center gap-4">
+        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-accent">0x02 // skills</span>
+        <span className="h-px flex-1 bg-border max-w-[60px]" />
       </div>
-      <motion.div
-        ref={ref}
-        className="grid gap-8 lg:grid-cols-2"
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? 'visible' : 'hidden'}
-      >
+
+      <div className="grid gap-10 lg:grid-cols-2">
         {categories.map((category, categoryIndex) => (
-          <motion.div key={category.title} variants={itemVariants}>
-            <div className="font-mono text-xs uppercase tracking-widest text-text-muted mb-3">
+          <motion.div
+            key={category.title}
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+            transition={{ duration: 0.4, delay: reduceMotion ? 0 : categoryIndex * 0.08 }}
+          >
+            <div className="border-b border-border pb-3 text-[11px] uppercase tracking-[0.12em] text-text-muted">
               {category.title}
             </div>
-            <motion.div className="flex flex-wrap" variants={containerVariants}>
+            <div className="mt-5 flex flex-wrap gap-3">
               {category.tags.map((tag, tagIndex) => (
-                <SkillChip key={tag} tag={tag} index={categoryIndex * 10 + tagIndex} />
+                <SkillChip key={tag} tag={tag} variant={category.variant as 'accent' | 'normal'} index={categoryIndex * 10 + tagIndex} />
               ))}
-            </motion.div>
+            </div>
           </motion.div>
         ))}
-      </motion.div>
-      <motion.section
-        className="mt-10 rounded border border-text-muted/30 bg-background p-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ delay: 0.3, duration: 0.4 }}
-      >
-        <div className="font-mono text-xs uppercase tracking-widest text-text-muted mb-3">
-          Currently Learning
-        </div>
-        <motion.div className="flex flex-wrap" variants={containerVariants}>
-          {learningGoals.map((goal, index) => (
-            <SkillChip key={goal} tag={goal} index={index} />
-          ))}
-        </motion.div>
-      </motion.section>
+      </div>
+
+      <div className="mt-10 border-b border-border pb-3 text-[11px] uppercase tracking-[0.12em] text-text-muted">
+        LOADING...
+      </div>
+      <div className="mt-5 flex flex-wrap gap-3">
+        {learningGoals.map((goal, index) => (
+          <SkillChip key={goal} tag={goal} variant="dashed" index={index} />
+        ))}
+      </div>
     </section>
   );
 }
