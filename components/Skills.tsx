@@ -19,12 +19,12 @@ const categories = [
   {
     title: 'TOOLCHAIN',
     variant: 'normal',
-    tags: ['PlatformIO', 'Wokwi', 'Git', 'VS Code']
+    tags: ['PlatformIO', 'Wokwi', 'Git', 'VS Code','Arduino IDE']
   },
   {
     title: 'LANGUAGES',
     variant: 'normal',
-    tags: ['C', 'Python', 'Verilog', 'TypeScript']
+    tags: ['C', 'Python', 'Verilog', ]
   },
   {
     title: 'ACADEMIC',
