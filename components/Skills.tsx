@@ -24,7 +24,7 @@ const categories = [
   {
     title: 'LANGUAGES',
     variant: 'normal',
-    tags: ['C', 'Python', 'Verilog', ]
+    tags: ['C', 'Python', 'Verilog', 'c++' ,'JavaScript','Assembly Language','MATLAB' ]
   },
   {
     title: 'ACADEMIC',
