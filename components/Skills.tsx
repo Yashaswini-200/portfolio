@@ -29,7 +29,7 @@ const categories = [
   {
     title: 'ACADEMIC',
     variant: 'dashed',
-    tags: ['Digital Signal Processing', 'Communication Systems', 'Digital Electronics']
+    tags: ['Digital Signal Processing', 'Communication Systems', 'Digital Electronics','Micro Controllers','Computer Organisation','Operating Systems']
   }
 ];
 
