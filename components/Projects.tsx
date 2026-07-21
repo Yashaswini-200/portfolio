@@ -1,25 +1,58 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import type { Project } from '@/types';
 import Link from 'next/link';
+import { shouldReduceMotion } from '@/lib/animations';
 
 type ProjectsProps = {
   projects: Project[];
 };
 
 export default function Projects({ projects }: ProjectsProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const reduceMotion = shouldReduceMotion();
+
   return (
-    <section id="projects" className="mt-16">
-      <div className="mb-10 flex items-center gap-4">
-        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-accent">0x03 // projects</span>
-        <span className="h-px flex-1 bg-border max-w-[60px]" />
+    <motion.section
+      id="projects"
+      ref={ref}
+      initial="hidden"
+      animate={inView ? 'visible' : 'hidden'}
+      variants={reduceMotion ? { hidden: { opacity: 1 }, visible: { opacity: 1 } } : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } } }}
+      className="mt-16 rounded-[2px] border border-border/70 bg-[rgba(255,255,255,0.02)] p-6 md:p-8"
+    >
+      <div className="mb-8 flex items-center gap-4">
+        <span className="font-mono text-[13px] uppercase tracking-[0.18em] text-accent">0x03 // projects</span>
+        <span className="h-px flex-1 bg-border max-w-[90px]" />
       </div>
 
       <div className="space-y-0">
         {projects.map((project, index) => (
           <div
             key={project.id}
-            className={`group border-b border-border ${index === 0 ? 'border-t' : ''} bg-bg2 p-6 transition-colors duration-200 hover:bg-[rgba(0,255,156,0.04)] hover:border-l-2 hover:border-accent`}
+            className={`project-card group relative overflow-hidden border-b border-border ${index === 0 ? 'border-t' : ''} bg-bg2/80 p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-accent hover:bg-[rgba(0,255,156,0.04)] hover:shadow-[0_0_0_1px_rgba(0,255,156,0.14),0_18px_36px_rgba(0,0,0,0.32)]`}
           >
             <div className="md:grid md:grid-cols-[max-content_1fr_max-content] md:gap-6">
               <div className="font-mono text-[11px] uppercase tracking-[0.15em] text-accent">0x{String(project.id).padStart(2, '0')}</div>
@@ -58,6 +91,6 @@ export default function Projects({ projects }: ProjectsProps) {
           </div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

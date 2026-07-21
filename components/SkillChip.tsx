@@ -28,7 +28,7 @@ export default function SkillChip({ tag, variant = 'normal', index = 0 }: SkillC
       };
 
   const classes = [
-    'inline-flex items-center border border-border px-3 py-2 text-[11px] font-mono uppercase tracking-[0.08em]'
+    'inline-flex items-center border border-border px-3 py-2 text-[11px] font-mono uppercase tracking-[0.08em] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent'
   ];
 
   if (variant === 'accent') {

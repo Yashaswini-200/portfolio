@@ -86,10 +86,7 @@ export default function Skills() {
         ))}
       </div>
 
-      <div className="mt-10 border-b border-border pb-3 text-[11px] uppercase tracking-[0.12em] text-text-muted">
-        LOADING...
-      </div>
-      <div className="mt-5 flex flex-wrap gap-3">
+      <div className="mt-8 flex flex-wrap gap-3">
         {learningGoals.map((goal, index) => (
           <SkillChip key={goal} tag={goal} variant="dashed" index={index} />
         ))}

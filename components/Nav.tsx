@@ -6,8 +6,7 @@ const navLinks = [
   { href: '#about', label: 'About', address: '0x01' },
   { href: '#skills', label: 'Skills', address: '0x02' },
   { href: '#projects', label: 'Projects', address: '0x03' },
-  { href: '#journey', label: 'Journey', address: '0x04' },
-  { href: '#contact', label: 'Contact', address: '0x05' }
+  { href: '#contact', label: 'Contact', address: '0x04' }
 ];
 
 export default function Nav() {
@@ -82,11 +81,11 @@ export default function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className={`font-mono text-[12px] uppercase tracking-[0.15em] transition-colors duration-150 ${
+              className={`relative font-mono text-[12px] uppercase tracking-[0.15em] transition-colors duration-150 ${
                 activeSection === link.href.substring(1)
                   ? 'text-accent'
                   : 'text-text-muted hover:text-accent'
-              } focus:outline-2 focus:outline-accent focus:outline-offset-2`}
+              } focus:outline-2 focus:outline-accent focus:outline-offset-2 after:absolute after:bottom-[-2px] after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-200 hover:after:scale-x-100`}
             >
               {link.address}
             </a>

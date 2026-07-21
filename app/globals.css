@@ -32,6 +32,38 @@ body {
   color: var(--text);
 }
 
+@keyframes blink {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@keyframes pulseStatus {
+  0%, 100% { opacity: 0.65; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.animate-blink-block {
+  animation: blink 1s steps(1, end) infinite;
+}
+
+.animate-pulse-status {
+  animation: pulseStatus 2s ease-in-out infinite;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 156, 0.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  transition: transform 180ms ease-out;
+  pointer-events: none;
+}
+
+.project-card:hover::before {
+  transform: translateX(120%);
+}
+
 a {
   color: inherit;
   text-decoration: none;

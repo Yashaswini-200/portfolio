@@ -10,11 +10,11 @@ const terminalLines = [
     output: 'Yashaswini — Integrated B.Tech + M.Tech · ECE'
   },
   {
-    command: 'cat focus.txt',
+    command: 'echo $FOCUS',
     output: 'Bare-metal firmware for resource-constrained systems.'
   },
   {
-    command: 'cat expertise.txt',
+    command: 'grep -i "expertise" ./skills',
     output: 'UART · Interrupts · Ring Buffers · State Machines · Cooperative Scheduling'
   },
   {
@@ -129,6 +129,9 @@ export default function Hero() {
             <rect x="380" y="520" width="20" height="14" />
             <path d="M374 525H380M374 530H380M374 535H380M404 525H410M404 530H410M404 535H410" />
           </g>
+          <circle r="2" fill="#00FF9C" opacity="0.45">
+            <animateMotion dur="5s" repeatCount="indefinite" path="M120 90C190 76 260 74 330 100" />
+          </circle>
         </svg>
       </div>
 
